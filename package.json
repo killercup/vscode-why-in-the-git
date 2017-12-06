@@ -1,0 +1,43 @@
+{
+    "name": "vscode-why-in-the-git",
+    "displayName": "why-in-the-git",
+    "description": "Show the full commit message for the commit thaat changed the current line",
+    "version": "0.0.1",
+    "publisher": "killercup",
+    "engines": {
+        "vscode": "^1.18.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:extension.whyInTheNameOfGit"
+    ],
+    "main": "./out/extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "extension.whyInTheNameOfGit",
+                "title": "Show corresponding commit message"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "@types/mocha": "^2.2.42",
+        "@types/node": "^7.0.43",
+        "tslint": "^5.8.0",
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6"
+    },
+    "dependencies": {
+        "@types/markdown-it": "0.0.4",
+        "markdown-it": "^8.4.0"
+    }
+}
