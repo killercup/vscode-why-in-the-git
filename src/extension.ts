@@ -8,7 +8,7 @@ import { getCommitMessage, gitAvailable, inGitRepo } from "./git";
 
 export async function activate(context: vscode.ExtensionContext) {
   const provider = new CommitMessageDocument();
-  const registration = vscode.workspace.registerTextDocumentContentProvider("git-commit-message", provider);
+  const registration = vscode.workspace.registerTextDocumentContentProvider("why-in-the-git", provider);
 
   const disposable = vscode.commands.registerCommand("extension.whyInTheNameOfGit", async () => {
     try {
@@ -24,10 +24,10 @@ export async function activate(context: vscode.ExtensionContext) {
         return;
       }
 
-      const { message } = await getCommitMessage(GIT_SHOW_MARKDOWN_FORMAT);
+      const { hash, message } = await getCommitMessage(GIT_SHOW_MARKDOWN_FORMAT);
       COMMIT_MESSAGE_VIEW_CONTENT.body = message;
 
-      const previewUri = vscode.Uri.parse(`git-commit-message://fany-interactive-thing`);
+      const previewUri = vscode.Uri.parse(`why-in-the-git://git-commit-message/${hash}`);
       await vscode.commands.executeCommand(
         "vscode.previewHtml",
         previewUri,
