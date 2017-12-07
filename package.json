@@ -4,6 +4,7 @@
     "description": "Show the full commit message for the commit thaat changed the current line",
     "version": "0.0.1",
     "publisher": "killercup",
+    "license": "MIT",
     "engines": {
         "vscode": "^1.18.0"
     },
