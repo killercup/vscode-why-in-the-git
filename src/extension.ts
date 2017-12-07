@@ -1,10 +1,7 @@
 import {AssertionError} from "assert";
 import * as vscode from "vscode";
-import CommitMessageDocument, {
-  COMMIT_MESSAGE_VIEW_CONTENT,
-  GIT_SHOW_MARKDOWN_FORMAT,
-} from "./commit-message-document";
-import { getCommitMessage, gitAvailable, inGitRepo } from "./git";
+import CommitMessageDocument from "./commit-message-document";
+import { getCommitHash, gitAvailable, inGitRepo } from "./git";
 
 export async function activate(context: vscode.ExtensionContext) {
   const provider = new CommitMessageDocument();
@@ -24,15 +21,14 @@ export async function activate(context: vscode.ExtensionContext) {
         return;
       }
 
-      const { hash, message } = await getCommitMessage(GIT_SHOW_MARKDOWN_FORMAT);
-      COMMIT_MESSAGE_VIEW_CONTENT.body = message;
+      const hash = await getCommitHash();
 
       const previewUri = vscode.Uri.parse(`why-in-the-git://git-commit-message/${hash}`);
       await vscode.commands.executeCommand(
         "vscode.previewHtml",
         previewUri,
         vscode.ViewColumn.Two,
-        "Git commit message for this line",
+        `Commit ${hash.slice(0, 6)}`,
       );
     } catch (error) {
       if (error instanceof AssertionError) {

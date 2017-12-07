@@ -1,5 +1,6 @@
 import * as markdownIt from "markdown-it";
 import * as vscode from "vscode";
+import { getCommit } from "./git";
 
 const md = markdownIt({
   html: false,
@@ -23,12 +24,11 @@ export const GIT_SHOW_MARKDOWN_FORMAT = [
   "- commited by _%cN_ on %cD",
 ].join("%n%n");
 
-/// FIXME: Don't you just love global singletons?
-export const COMMIT_MESSAGE_VIEW_CONTENT = { body: "" };
-
 export default class CommitMessageDocument implements vscode.TextDocumentContentProvider {
   public async provideTextDocumentContent(uri: vscode.Uri): Promise<string> {
-    return this.showCommitMessage(COMMIT_MESSAGE_VIEW_CONTENT.body);
+    const hash = uri.path.slice(1); // cut of leading slash
+    const message = await getCommit(hash, GIT_SHOW_MARKDOWN_FORMAT);
+    return this.showCommitMessage(message);
   }
 
   private async showCommitMessage(body: string) {

@@ -36,12 +36,6 @@ interface ILine {
   line: number;
 }
 
-interface ICommitInfo {
-  hash: CommitHash;
-  message: CommitMessage;
-  // author: string;
-}
-
 const BLAME_REGEX = new RegExp("([0-9A-Fa-f]{40}) (.*)");
 
 function parsePorcelainBlame(blame: string): CommitHash {
@@ -68,7 +62,12 @@ async function getBlameInfoForLine(file: ILine, cwd: string): Promise<string> {
   return stdout;
 }
 
-async function getCommit(commitHash: CommitHash, cwd: string, format = "%B"): Promise<CommitMessage> {
+export async function getCommit(
+  commitHash: CommitHash,
+  format = "%B",
+  givenCwd?: string,
+): Promise<CommitMessage> {
+  const cwd = givenCwd || getWorkingDir();
   const { stdout } = await exec("git", [
     "show", "--no-patch", `--format=${format}`, commitHash,
   ], { cwd });
@@ -76,7 +75,7 @@ async function getCommit(commitHash: CommitHash, cwd: string, format = "%B"): Pr
   return stdout;
 }
 
-export async function getCommitMessage(format = "%B"): Promise<ICommitInfo> {
+export async function getCommitHash(): Promise<CommitHash> {
   const editor = vscode.window.activeTextEditor;
   if (!editor) { throw new AssertionError({ message: "no active editor found"}); }
   const cwd = getWorkingDir();
@@ -89,7 +88,5 @@ export async function getCommitMessage(format = "%B"): Promise<ICommitInfo> {
     throw new AssertionError({ message: "line is not commited yet"});
   }
 
-  const message = await getCommit(hash, cwd, format);
-
-  return { hash, message };
+  return hash;
 }
