@@ -2,7 +2,7 @@
     "name": "vscode-why-in-the-git",
     "displayName": "why-in-the-git",
     "description": "Show the full commit message for the commit thaat changed the current line",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "publisher": "killercup",
     "license": "MIT",
     "engines": {
