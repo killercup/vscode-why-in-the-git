@@ -7,6 +7,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how
 to structure this file.
 
 ## [Unreleased]
+
+## [0.1.2] - 2017-12-07
 ### Fixed
 - Make multiple views actually work
 
@@ -21,5 +23,6 @@ to structure this file.
 
 
 [Unreleased]: https://github.com/killercup/vscode-why-in-the-git/compare/v0.1.0...HEAD
+[0.1.2]: https://github.com/killercup/vscode-why-in-the-git/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/killercup/vscode-why-in-the-git/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/killercup/vscode-why-in-the-git/compare/f5b72fc141cd7c22af3a7118668f149da32956ff...v0.1.0
